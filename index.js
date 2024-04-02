@@ -9,7 +9,11 @@ const server = app.listen(port, () => console.log(`Example app listening on port
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
-const puppeteer = require("puppeteer");
+//const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-extra")
+const StealthPlugin = require("puppeteer-extra-plugin-stealth")
+
+
 const { MongoClient } = require('mongodb');
 const uri = 'mongodb://127.0.0.1:27017';
 const client = new MongoClient(uri);
@@ -26,6 +30,8 @@ async function robo() {
 
         try {
 
+                // configure the stealth plugin
+                puppeteer.use(StealthPlugin())
                 // set up the browser and launch it
                 const browser = await puppeteer.launch()
 
