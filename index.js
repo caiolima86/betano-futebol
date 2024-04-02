@@ -36,7 +36,7 @@ async function robo() {
                         waitUntil: 'networkidle0',
                 });
 
-                let screenshot = await page.screenshot({ encoding: "base64" }).then(function(data){
+                let screenshot = await page.screenshot({ encoding: "base64", fullPage: true }).then(function(data){
                         let base64Encode = `data:image/png;base64,${data}`;
                         return base64Encode;
                 });
