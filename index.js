@@ -26,54 +26,13 @@ async function robo() {
 
         try {
 
-                const browser = await puppeteer.launch({
-                        headless:false,
-                        defaultViewport: false
-                });
-                const screenshotPath = 'geolocation.png';
-                let url = 'https://br.betano.com/virtuals/';
-                const context = browser.defaultBrowserContext();
-                await context.overridePermissions(url, ['geolocation']);
-
-                const page = await browser.newPage();
-                await page.evaluateOnNewDocument( () => {
-                        navigator.geolocation.getCurrentPosition = cb => {
-                                setTimeout(() => {
-                                        cb({
-                                                'coords': {
-                                                        accuracy: 21,
-                                                        altitude: null,
-                                                        altitudeAccuracy: null,
-                                                        heading: null,
-                                                        latitude: -15.793889,
-                                                        longitude: -47.882778,
-                                                        speed: null
-                                                }
-                                        })
-                                }, 1000)
-                        }
-                });
-
-                await page.goto(url,{waitUntil:'load'});
-
-                let screenshot = await page.screenshot({ encoding: "base64" }).then(function(data){
-                        let base64Encode = `data:image/png;base64,${data}`;
-                        return base64Encode;
-                });
-
-                console.log(screenshot);
-                //await page.screenshot({ path: screenshotPath });
-
-                //await browser.close()
-
-
-                /*browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
+                browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
                 page = await browser.newPage();
                 await page.setViewport({width: 1920, height: 1080});
 
                 await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
                 // Navigate the page to a URL
-                await page.goto('https://br.betano.com/virtuals/', {
+                await page.goto('https://www.betano.com', {
                         waitUntil: 'networkidle0',
                 });
 
