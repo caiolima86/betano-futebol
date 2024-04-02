@@ -26,7 +26,26 @@ async function robo() {
 
         try {
 
-                browser = await puppeteer.launch();
+                // set up the browser and launch it
+                const browser = await puppeteer.launch()
+
+                // open a new blank page
+                const page = await browser.newPage()
+
+                // navigate the page to the target page
+                await page.goto("https://arh.antoinevastel.com/bots/areyouheadless")
+
+                // extract the message of the test result
+                const resultElement = await page.$("#res")
+                const message = await resultElement.evaluate(e => e.textContent)
+
+                // print the resulting message
+                console.log(`The result of the test is "%s"`, message);
+
+                // close the current browser session
+                await browser.close()
+
+               /* browser = await puppeteer.launch();
                 page = await browser.newPage();
                 await page.setViewport({width: 1920, height: 1080});
 
@@ -36,7 +55,7 @@ async function robo() {
                         waitUntil: 'networkidle0',
                 });
 
-                roboCarregaPaginaJogo();
+                roboCarregaPaginaJogo();*/
 
         } catch (err) {
                 console.error("ERRO 1", err);
