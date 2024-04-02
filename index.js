@@ -210,3 +210,5 @@ function delay(time) {
                 setTimeout(resolve, time)
         });
 }
+
+robo();
