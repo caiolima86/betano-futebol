@@ -32,7 +32,7 @@ async function robo() {
 
                 await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
                 // Navigate the page to a URL
-                await page.goto('https://www.google.com', {
+                await page.goto('https://www.betano.de/', {
                         waitUntil: 'networkidle0',
                 });
 
