@@ -26,7 +26,7 @@ async function robo() {
 
         try {
 
-                browser = await puppeteer.launch({headless: false});
+                browser = await puppeteer.launch({args: ['--no-sandbox']});
                 page = await browser.newPage();
                 await page.setViewport({ width: 1550, height: 740});
 
