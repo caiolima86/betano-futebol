@@ -45,8 +45,8 @@ async function robo() {
                                                         altitude: null,
                                                         altitudeAccuracy: null,
                                                         heading: null,
-                                                        latitude: 0.62896,
-                                                        longitude: 77.3111303,
+                                                        latitude: -15.793889,
+                                                        longitude: -47.882778,
                                                         speed: null
                                                 }
                                         })
