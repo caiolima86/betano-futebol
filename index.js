@@ -30,6 +30,7 @@ async function robo() {
                 page = await browser.newPage();
                 await page.setViewport({ width: 1550, height: 740});
 
+                await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
                 // Navigate the page to a URL
                 await page.goto('https://br.betano.com/virtuals/', {
                         waitUntil: 'networkidle0',
