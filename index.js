@@ -39,17 +39,9 @@ async function robo() {
                 const page = await browser.newPage()
 
                 // navigate the page to the target page
-                await page.goto("https://arh.antoinevastel.com/bots/areyouheadless")
+                await page.goto("https://br.betano.com/virtuals/")
 
-                // extract the message of the test result
-                const resultElement = await page.$("#res")
-                const message = await resultElement.evaluate(e => e.textContent)
 
-                // print the resulting message
-                console.log(`The result of the test is "%s"`, message);
-
-                // close the current browser session
-                await browser.close()
 
                /* browser = await puppeteer.launch();
                 page = await browser.newPage();
@@ -59,9 +51,9 @@ async function robo() {
                 // Navigate the page to a URL
                 await page.goto('https://br.betano.com/virtuals/', {
                         waitUntil: 'networkidle0',
-                });
+                });*/
 
-                roboCarregaPaginaJogo();*/
+                roboCarregaPaginaJogo();
 
         } catch (err) {
                 console.error("ERRO 1", err);
