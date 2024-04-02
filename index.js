@@ -9,11 +9,7 @@ const server = app.listen(port, () => console.log(`Example app listening on port
 server.keepAliveTimeout = 120 * 1000;
 server.headersTimeout = 120 * 1000;
 
-//const puppeteer = require("puppeteer");
-const puppeteer = require("puppeteer-extra")
-const StealthPlugin = require("puppeteer-extra-plugin-stealth")
-
-
+const puppeteer = require("puppeteer");
 const { MongoClient } = require('mongodb');
 const uri = 'mongodb://127.0.0.1:27017';
 const client = new MongoClient(uri);
@@ -30,30 +26,25 @@ async function robo() {
 
         try {
 
-                // configure the stealth plugin
-                puppeteer.use(StealthPlugin())
-                // set up the browser and launch it
-                browser = await puppeteer.launch()
-
-                // open a new blank page
-                page = await browser.newPage()
-
-                // navigate the page to the target page
-                await page.goto("https://br.betano.com/virtuals/")
-
-
-
-               /* browser = await puppeteer.launch();
+                browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
                 page = await browser.newPage();
                 await page.setViewport({width: 1920, height: 1080});
 
-                await page.setUserAgent('Mozilla/5.0 (Windows NT 5.1; rv:5.0) Gecko/20100101 Firefox/5.0');
+                await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
                 // Navigate the page to a URL
                 await page.goto('https://br.betano.com/virtuals/', {
                         waitUntil: 'networkidle0',
-                });*/
+                });
 
-                roboCarregaPaginaJogo();
+                let screenshot = await page.screenshot({ encoding: "base64" }).then(function(data){
+                        let base64Encode = `data:image/png;base64,${data}`;
+                        return base64Encode;
+                });
+
+                console.log(screenshot);
+
+
+                //roboCarregaPaginaJogo();
 
         } catch (err) {
                 console.error("ERRO 1", err);
