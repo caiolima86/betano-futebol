@@ -26,7 +26,48 @@ async function robo() {
 
         try {
 
-                browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
+                const browser = await puppeteer.launch({
+                        headless:false,
+                        defaultViewport: false
+                });
+                const screenshotPath = 'geolocation.png';
+                let url = 'https://br.betano.com/virtuals/';
+                const context = browser.defaultBrowserContext();
+                await context.overridePermissions(url, ['geolocation']);
+
+                const page = await browser.newPage();
+                await page.evaluateOnNewDocument( () => {
+                        navigator.geolocation.getCurrentPosition = cb => {
+                                setTimeout(() => {
+                                        cb({
+                                                'coords': {
+                                                        accuracy: 21,
+                                                        altitude: null,
+                                                        altitudeAccuracy: null,
+                                                        heading: null,
+                                                        latitude: 0.62896,
+                                                        longitude: 77.3111303,
+                                                        speed: null
+                                                }
+                                        })
+                                }, 1000)
+                        }
+                });
+
+                await page.goto(url,{waitUntil:'load'});
+
+                let screenshot = await page.screenshot({ encoding: "base64" }).then(function(data){
+                        let base64Encode = `data:image/png;base64,${data}`;
+                        return base64Encode;
+                });
+
+                console.log(screenshot);
+                //await page.screenshot({ path: screenshotPath });
+
+                //await browser.close()
+
+
+                /*browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
                 page = await browser.newPage();
                 await page.setViewport({width: 1920, height: 1080});
 
@@ -44,7 +85,7 @@ async function robo() {
                 console.log(screenshot);
 
 
-                //roboCarregaPaginaJogo();
+                //roboCarregaPaginaJogo();*/
 
         } catch (err) {
                 console.error("ERRO 1", err);
