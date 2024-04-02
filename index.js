@@ -33,10 +33,10 @@ async function robo() {
                 // configure the stealth plugin
                 puppeteer.use(StealthPlugin())
                 // set up the browser and launch it
-                const browser = await puppeteer.launch()
+                browser = await puppeteer.launch()
 
                 // open a new blank page
-                const page = await browser.newPage()
+                page = await browser.newPage()
 
                 // navigate the page to the target page
                 await page.goto("https://br.betano.com/virtuals/")
