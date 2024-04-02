@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --max-old-space-size=6144 -r dotenv/config index"
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
