@@ -28,7 +28,7 @@ async function robo() {
 
                 browser = await puppeteer.launch({args: ['--no-sandbox']});
                 page = await browser.newPage();
-                await page.setViewport({ width: 1550, height: 740});
+                await page.setViewport({width: 1920, height: 1080});
 
                 await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
                 // Navigate the page to a URL
