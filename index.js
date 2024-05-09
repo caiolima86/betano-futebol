@@ -1,6 +1,7 @@
+const {firefox} = require("playwright-firefox");
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 8080;
 
 app.get("/", (req, res) => res.type('html').send("oi"));
 
@@ -25,23 +26,73 @@ let dadosJogos = {};
 async function robo() {
 
         try {
+                const proxyURL = 'http://64.225.8.82:9995'
 
-                browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
-                page = await browser.newPage();
-                await page.setViewport({width: 1920, height: 1080});
-
-                await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
-                // Navigate the page to a URL
-                await page.goto('https://br.betano.com/virtuals/', {
-                        waitUntil: 'networkidle0',
+                // launch a browser instance with the
+                // --proxy-server flag enabled
+                const browser = await firefox.launch({
+                        proxy: {
+                                server: '188.74.210.207:6286',
+                                username: 'elxkcyyp',
+                                password: 'kdtjs6xnb5ix'
+                        },
+                        headless: false
+                })
+                /*const browser = await puppeteer.launch({
+                        headless: true,
+                        args: [
+                                '--no-sandbox',
+                                //"--proxy-server=38.154.227.167:5868"
+                                //"--proxy-server=201.91.82.155:3128"
+                        ],
+                });
+                */
+                // open a new page in the current browser context
+                const page = await browser.newPage({
+                        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36',
+                        extraHTTPHeaders: {
+                                'Cache-Control': 'no-cache'
+                        }
                 });
 
-                let screenshot = await page.screenshot({ encoding: "base64", fullPage: true }).then(function(data){
+                // do not forget to put "await" before async functions
+                /*await page.authenticate({
+                        username: 'elxkcyyp',
+                        password: 'kdtjs6xnb5ix'
+                })*/
+
+
+                // visit the target page
+                /*await page.goto('https://httpbin.org/ip')
+
+                // extract the IP the request comes from
+                // and print it
+                const body = await page.waitForSelector('body')
+                const ip = await body.getProperty('textContent')
+                console.log(await ip.jsonValue())*/
+
+
+
+                /*browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-web-security']});
+                page = await browser.newPage();*/
+
+                //await page.setViewport({width: 1920, height: 1080});
+
+                //await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36');
+                // Navigate the page to a URL
+                await page.goto('https://www.bet365.com/#/HO/');
+
+                /*let screenshot = await page.screenshot({ encoding: "base64", fullPage: true }).then(function(data){
                         let base64Encode = `data:image/png;base64,${data}`;
                         return base64Encode;
                 });
 
-                console.log(screenshot);
+                console.log(screenshot);*/
+                await delay(15000);
+                const buffer = await page.screenshot();
+                console.log('data:image/png;base64,'+buffer.toString('base64'));
+
+
 
 
                 //roboCarregaPaginaJogo();*/
